@@ -6,14 +6,49 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/24 16:44:31 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/27 20:10:22 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
+
+#ifndef SO_LONG_H
+# define SO_LONG_H
+
+# include <unistd.h>
+# include <stdlib.h>
+
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+
+# include <stdio.h>
+
+typedef struct	s_vector2d {
+	int		x;
+	int		y;
+}				t_vector2d;
+typedef struct	s_image {
+	char		*path;
+	void		*img;
+}				t_image;
+
+typedef struct	s_player
+{
+	t_image		spr;
+	t_vector2d	pos;
+	int			score;
+}				t_player;
+
+typedef struct	s_game
+{
+	char		**tab;
+	void		*mlx;
+	void		*win;
+	t_vector2d	spr_size;
+	t_vector2d	size;
+	t_player	player;
+	t_image		spr_wall;
+	t_image		spr_floor;
+}				t_game;
+
+#endif

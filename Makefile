@@ -4,10 +4,15 @@ OBJS 		= ${SRCS:.c=.o}
 OBJS_B		= ${SRCS_BONUS:.c=.o}
 OBJS_M		= ${SRCS_MANDATORY:.c=.o}
 
+GNL			= ./gnl/get_next_line.c \
+			  ./gnl/get_next_line_utils.c
+
+OBJS_GNL	= ${GNL:.c=.o}
+
 UNAME		:= $(shell uname)
 
 PATH_MLX	= mlx
-CC 			= gcc
+CC 			= clang
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -f
 NAME		= so_long
@@ -18,9 +23,9 @@ all: 		${NAME}
 .c.o:
 			${CC} ${CFLAGS} -Imlx -Ibass -c $< -o ${<:.c=.o}
 
-$(NAME): 	$(OBJS) ${OBJS_M}
+$(NAME): 	$(OBJS) ${OBJS_M} ${OBJS_GNL}
 			make -C $(PATH_MLX)
-			${CC} $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} $(FLAGS)
+			${CC} $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_GNL} $(FLAGS)
 
 bonus:		${OBJS} ${OBJS_B}
 			make -C $(PATH_MLX)

@@ -1,34 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
+/*   Updated: 2021/10/27 19:47:46 by glima-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./mlx/mlx.h"
+#include "./so_long.h"
+#include "./gnl/get_next_line.h"
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+static void readMap()
 {
-	char	*dst;
+	int 	fd;
+	char	*aux;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	fd = open("./maps/level0.ber",O_RDONLY);
+	aux = get_next_line(fd);
+
+	printf("%s",aux);
 }
 
 int	main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
-	void	*img_char;
-	//t_data	img;
-	int		width = 26;
-	int		heigth = 34;
+	readMap();
+	t_game	game;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 260, 340, "Hello world!");
-	img_char = mlx_xpm_file_to_image(mlx, "./img/char1.xpm", &width, &heigth);
-	mlx_put_image_to_window(mlx, mlx_win, img_char, 0, 0);
-	mlx_put_image_to_window(mlx, mlx_win, img_char, 26, 0);
-	mlx_loop(mlx);
+	game.mlx = mlx_init();
+	game.spr_size.x = 32;
+	game.spr_size.y = 32;
+	game.size.x = game.spr_size.x * 10;
+	game.size.y = game.spr_size.x * 10;
+
+	//t_data	img;
+
+	game.player.spr.path = "./img/char1.xpm";
+	game.player.pos.x = 1;
+	game.player.pos.y = 5;
+
+	game.win = mlx_new_window(game.mlx, game.size.x, game.size.y, "so_long");
+	game.player.spr.img = mlx_xpm_file_to_image(game.mlx, game.player.spr.path, &game.size.x, &game.size.y);
+	mlx_put_image_to_window(game.mlx, game.win, game.player.spr.img, game.player.pos.x, game.player.pos.y);
+	mlx_loop(game.mlx);
 }
