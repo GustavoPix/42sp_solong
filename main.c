@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 21:03:59 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/28 19:02:39 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,45 @@
 #include "./so_long.h"
 #include "./gnl/get_next_line.h"
 #include "./libft/ft_printf.h"
+#include "./libft/libft/libft.h"
 
-static void readMap()
+static void readMap(struct s_game *game)
 {
 	int 	fd;
+	int		lines;
 	char	*aux;
+	char	*map;
 
 	fd = open("./maps/level0.ber",O_RDONLY);
 	aux = get_next_line(fd);
+	map = ft_strdup(aux);
 
-	ft_printf("%s",aux);
+	lines = 1;
+	while (aux != NULL)
+	{
+		aux = get_next_line(fd);
+		if(aux)
+		{
+			map = ft_strjoin(map,aux);
+			lines++;
+		}
+	}
+	game->map = ft_split(map,'\n');
+	game->size.x = ft_strlen(game->map[0]) * game->spr_size.x;
+	game->size.y = lines  * game->spr_size.y;
 }
+
 
 int	main(void)
 {
-	readMap();
 	t_game	game;
 
-	game.mlx = mlx_init();
 	game.spr_size.x = 32;
 	game.spr_size.y = 32;
-	game.size.x = game.spr_size.x * 10;
-	game.size.y = game.spr_size.x * 10;
+	readMap(&game);
+
+	game.mlx = mlx_init();
+
 
 	//t_data	img;
 

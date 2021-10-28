@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 20:26:23 by glima-de          #+#    #+#              #
-#    Updated: 2021/10/27 20:55:21 by glima-de         ###   ########.fr        #
+#    Updated: 2021/10/28 18:11:47 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,4 +99,7 @@ fclean: 	clean
 
 re: 		fclean all
 
-.PHONY:		bonus all clean fclean re
+test:		all
+			./so_long
+
+.PHONY:		bonus all clean fclean re test
