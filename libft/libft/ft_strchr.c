@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/05 12:26:37 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 20:40:48 by glima-de         ###   ########.fr       */
+/*   Created: 2021/08/22 10:50:47 by glima-de          #+#    #+#             */
+/*   Updated: 2021/09/08 18:52:16 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
-#endif
+#include "libft.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+char	*ft_strchr(const char *str, int c)
+{
+	int	i;
 
-char			*get_next_line(int fd);
-/*unsigned int	ft_strlen(const char *str);
-void			*ft_calloc(size_t nmemb, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strjoin(char const *s1, char const *s2);*/
-
-#endif
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return ((char *)&str[i]);
+		i++;
+	}
+	if (str[i] == '\0' && c == '\0')
+		return ((char *)&str[i]);
+	if (!ft_isascii(c))
+		return ((char *)&str[0]);
+	return (0);
+}

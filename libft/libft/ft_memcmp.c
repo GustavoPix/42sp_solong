@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/05 12:26:37 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 20:40:48 by glima-de         ###   ########.fr       */
+/*   Created: 2021/08/29 12:49:38 by glima-de          #+#    #+#             */
+/*   Updated: 2021/09/07 19:24:37 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
-#endif
+#include "libft.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+int	ft_memcmp(const void *ptr1, const void *ptr2, size_t num)
+{
+	size_t				i;
+	const unsigned char	*a;
+	const unsigned char	*b;
 
-char			*get_next_line(int fd);
-/*unsigned int	ft_strlen(const char *str);
-void			*ft_calloc(size_t nmemb, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strjoin(char const *s1, char const *s2);*/
-
-#endif
+	i = 0;
+	a = (const unsigned char *)ptr1;
+	b = (const unsigned char *)ptr2;
+	while (i < num)
+	{
+		if (a[i] != b[i])
+			return (a[i] - b[i]);
+		i++;
+	}
+	return (0);
+}

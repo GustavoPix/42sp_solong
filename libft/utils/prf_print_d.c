@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   prf_print_d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/05 12:26:37 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 20:40:48 by glima-de         ###   ########.fr       */
+/*   Created: 2021/09/25 16:27:37 by glima-de          #+#    #+#             */
+/*   Updated: 2021/09/25 16:40:34 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
-#endif
+#include "../libft/libft.h"
+#include "../ft_printf.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+int	prf_print_d(int n)
+{
+	int	s;
 
-char			*get_next_line(int fd);
-/*unsigned int	ft_strlen(const char *str);
-void			*ft_calloc(size_t nmemb, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strjoin(char const *s1, char const *s2);*/
-
-#endif
+	s = -1;
+	ft_putnbr_fd(n, 1);
+	while (n <= -10 || n >= 10)
+	{
+		s++;
+		n /= 10;
+	}
+	if (n < 0)
+		s++;
+	return (s);
+}

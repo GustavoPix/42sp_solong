@@ -6,11 +6,12 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/05 12:35:40 by glima-de          #+#    #+#             */
-/*   Updated: 2021/09/18 11:07:40 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:00:35 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "./get_next_line.h"
+#include "../libft/libft/libft.h"
 
 static int	gnl_readFile(char **lastRead, int fd)
 {

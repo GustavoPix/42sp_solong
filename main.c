@@ -6,13 +6,14 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 19:47:46 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:03:59 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./mlx/mlx.h"
 #include "./so_long.h"
 #include "./gnl/get_next_line.h"
+#include "./libft/ft_printf.h"
 
 static void readMap()
 {
@@ -22,7 +23,7 @@ static void readMap()
 	fd = open("./maps/level0.ber",O_RDONLY);
 	aux = get_next_line(fd);
 
-	printf("%s",aux);
+	ft_printf("%s",aux);
 }
 
 int	main(void)

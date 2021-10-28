@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/05 12:26:37 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 20:40:48 by glima-de         ###   ########.fr       */
+/*   Created: 2021/08/22 11:59:43 by glima-de          #+#    #+#             */
+/*   Updated: 2021/09/04 16:15:33 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
-#endif
+#include "libft.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
+{
+	size_t			i;
+	unsigned char	a;
+	unsigned char	b;
 
-char			*get_next_line(int fd);
-/*unsigned int	ft_strlen(const char *str);
-void			*ft_calloc(size_t nmemb, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strjoin(char const *s1, char const *s2);*/
-
-#endif
+	i = 0;
+	while (i < n && (str1[i] || str2[i]))
+	{
+		if (str1[i] != str2[i])
+		{
+			a = str1[i];
+			b = str2[i];
+			return (a - b);
+		}
+		i++;
+	}
+	return (0);
+}

@@ -1,28 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/05 12:26:37 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 20:40:48 by glima-de         ###   ########.fr       */
+/*   Created: 2021/08/26 20:05:40 by glima-de          #+#    #+#             */
+/*   Updated: 2021/10/06 13:56:08 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
-#endif
+#include "libft.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+static void	ft_putchar(char c, int fd)
+{
+	write(fd, &c, 1);
+}
 
-char			*get_next_line(int fd);
-/*unsigned int	ft_strlen(const char *str);
-void			*ft_calloc(size_t nmemb, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strjoin(char const *s1, char const *s2);*/
+static void	loop_to_print(int nb, int fd)
+{
+	char	c;
 
-#endif
+	if (nb >= 10 || nb <= -10)
+	{
+		loop_to_print(nb / 10, fd);
+		loop_to_print(nb % 10, fd);
+	}
+	else
+	{
+		if (nb < 0)
+			nb *= -1;
+		c = nb + '0';
+		ft_putchar(c, fd);
+	}
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n < 0)
+		ft_putchar('-', fd);
+	loop_to_print(n, fd);
+}

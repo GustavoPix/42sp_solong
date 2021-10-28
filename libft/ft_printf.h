@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/05 12:26:37 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 20:40:48 by glima-de         ###   ########.fr       */
+/*   Created: 2021/09/24 15:28:06 by glima-de          #+#    #+#             */
+/*   Updated: 2021/10/06 18:19:40 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
-#endif
-
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <stdlib.h>
+# include <unistd.h>
+# include <stdarg.h>
 
-char			*get_next_line(int fd);
-/*unsigned int	ft_strlen(const char *str);
-void			*ft_calloc(size_t nmemb, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strjoin(char const *s1, char const *s2);*/
+int	ft_printf(const char *str, ...);
+int	prf_print_d(int n);
+int	prf_print_s(char *str);
+int	prf_print_u(unsigned int n);
+int	prf_print_p(unsigned long pointer);
+int	prf_dec_to_base(unsigned long nbr, const char *base);
+int	prf_print_x(unsigned long pointer, const char *base);
 
 #endif

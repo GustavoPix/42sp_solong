@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+/*void	*ft_calloc(size_t nmemb, size_t size)
 {
 	char	*aux;
 	size_t	i;
@@ -82,4 +82,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	aux[ia] = '\0';
 	return (aux);
-}
+}*/

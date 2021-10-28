@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   prf_dec_to_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/05 12:26:37 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/27 20:40:48 by glima-de         ###   ########.fr       */
+/*   Created: 2021/10/06 18:16:23 by glima-de          #+#    #+#             */
+/*   Updated: 2021/10/06 18:16:32 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
-#endif
+#include "../libft/libft.h"
+#include "../ft_printf.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+int	prf_dec_to_base(unsigned long nbr, const char *base)
+{
+	int	s;
 
-char			*get_next_line(int fd);
-/*unsigned int	ft_strlen(const char *str);
-void			*ft_calloc(size_t nmemb, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strjoin(char const *s1, char const *s2);*/
-
-#endif
+	s = 1;
+	if (nbr >= (unsigned long)ft_strlen(base))
+	{
+		s = prf_dec_to_base(nbr / ft_strlen(base), base);
+		return (s + prf_dec_to_base(nbr % ft_strlen(base), base));
+	}
+	else
+	{
+		if (nbr < 0)
+			nbr *= -1;
+		ft_putchar_fd(base[nbr], 1);
+		return (s);
+	}
+}
