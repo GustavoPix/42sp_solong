@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/28 19:02:39 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/29 20:48:52 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,48 @@ static void readMap(struct s_game *game)
 		}
 	}
 	game->map = ft_split(map,'\n');
-	game->size.x = ft_strlen(game->map[0]) * game->spr_size.x;
-	game->size.y = lines  * game->spr_size.y;
+	game->size.x = ft_strlen(game->map[0]);
+	game->size.y = lines;
 }
 
+static void load_game(struct s_game *game)
+{
+	game->win = mlx_new_window(game->mlx, game->size.x * game->spr_size.x, game->size.y * game->spr_size.y, "so_long");
+	game->player.spr.path = "./img/character.xpm";
+	game->spr_wall.path = "./img/rock.xpm";
+	game->spr_floor.path = "./img/grass.xpm";
+	game->spr_endclose.path = "./img/exitclose.xpm";
+	game->player.spr.img = mlx_xpm_file_to_image(game->mlx, game->player.spr.path, &game->spr_size.x, &game->spr_size.y);
+	game->spr_wall.img = mlx_xpm_file_to_image(game->mlx, game->spr_wall.path, &game->spr_size.x, &game->spr_size.y);
+	game->spr_floor.img = mlx_xpm_file_to_image(game->mlx, game->spr_floor.path, &game->spr_size.x, &game->spr_size.y);
+	game->spr_endclose.img = mlx_xpm_file_to_image(game->mlx, game->spr_endclose.path, &game->spr_size.x, &game->spr_size.y);
+}
+
+static void draw_map(t_game game)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < game.size.y)
+	{
+		x = 0;
+		while (x < game.size.x)
+		{
+			if(game.map[y][x] == '1')
+				mlx_put_image_to_window(game.mlx, game.win, game.spr_wall.img, x * game.spr_size.x, y * game.spr_size.y);
+			else if(game.map[y][x] == 'E')
+				mlx_put_image_to_window(game.mlx, game.win, game.spr_endclose.img, x * game.spr_size.x, y * game.spr_size.y);
+			else
+				mlx_put_image_to_window(game.mlx, game.win, game.spr_floor.img, x * game.spr_size.x, y * game.spr_size.y);
+			x++;
+		}
+		y++;
+	}
+
+	mlx_put_image_to_window(game.mlx, game.win, game.player.spr.img, game.player.pos.x * game.spr_size.x, game.player.pos.y * game.spr_size.y);
+
+}
 
 int	main(void)
 {
@@ -51,17 +89,20 @@ int	main(void)
 	game.spr_size.y = 32;
 	readMap(&game);
 
+
 	game.mlx = mlx_init();
 
 
 	//t_data	img;
 
-	game.player.spr.path = "./img/char1.xpm";
-	game.player.pos.x = 1;
-	game.player.pos.y = 5;
+	//game.player.spr.path = "./img/character.xpm";
+	game.player.pos.x = 3;
+	game.player.pos.y = 2;
 
-	game.win = mlx_new_window(game.mlx, game.size.x, game.size.y, "so_long");
-	game.player.spr.img = mlx_xpm_file_to_image(game.mlx, game.player.spr.path, &game.size.x, &game.size.y);
-	mlx_put_image_to_window(game.mlx, game.win, game.player.spr.img, game.player.pos.x, game.player.pos.y);
+
+	load_game(&game);
+
+	//mlx_put_image_to_window(game.mlx, game.win, game.player.spr.img, game.player.pos.x, game.player.pos.y);
+	draw_map(game);
 	mlx_loop(game.mlx);
 }
