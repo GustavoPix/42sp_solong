@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 14:08:36 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 14:57:53 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void readMap(struct s_game *game)
 	char	*aux;
 	char	*map;
 
-	fd = open("./maps/level0.ber",O_RDONLY);
+	fd = open("./maps/no_wall_rounded.ber",O_RDONLY);
 	aux = get_next_line(fd);
 	map = ft_strdup(aux);
 
@@ -206,16 +206,20 @@ int	main(void)
 {
 	t_game	game;
 
-	game.spr_size.x = 32;
-	game.spr_size.y = 32;
 	readMap(&game);
-	game.mlx = mlx_init();
+	if (check_valid_map(game))
+	{
+		game.spr_size.x = 32;
+		game.spr_size.y = 32;
+		game.mlx = mlx_init();
 
-	load_game(&game);
-	set_start_pos_char(&game);
+		load_game(&game);
+		set_start_pos_char(&game);
 
-	//draw_map(game);
-	mlx_loop_hook(game.mlx, update_game, &game);
-	mlx_hook(game.win, 02, 1L<<0, move_char, &game);
-	mlx_loop(game.mlx);
+		//draw_map(game);
+		mlx_loop_hook(game.mlx, update_game, &game);
+		mlx_hook(game.win, 02, 1L<<0, move_char, &game);
+		mlx_loop(game.mlx);
+	}
+	return (0);
 }

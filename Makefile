@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 20:26:23 by glima-de          #+#    #+#              #
-#    Updated: 2021/10/28 18:11:47 by glima-de         ###   ########.fr        #
+#    Updated: 2021/10/30 14:36:15 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,11 @@ LIBFT 		= ./libft/libft/ft_atoi.c \
 GNL			= ./gnl/get_next_line.c \
 			  ./gnl/get_next_line_utils.c
 
+SLG_UTL		= ./utils/map.c
+
 OBJS_GNL	= ${GNL:.c=.o}
 OBJS_LIBFT	= ${LIBFT:.c=.o}
+OBJS_SLG	= ${SLG_UTL:.c=.o}
 
 UNAME		:= $(shell uname)
 
@@ -81,9 +84,9 @@ all: 		${NAME}
 .c.o:
 			${CC} ${CFLAGS} -Imlx -Ibass -c $< -o ${<:.c=.o}
 
-$(NAME): 	$(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL}
+$(NAME): 	$(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG}
 			make -C $(PATH_MLX)
-			${CC} $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} $(FLAGS)
+			${CC} $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG} $(FLAGS)
 
 bonus:		${OBJS} ${OBJS_B}
 			make -C $(PATH_MLX)
@@ -91,7 +94,7 @@ bonus:		${OBJS} ${OBJS_B}
 
 clean:
 			make -C $(PATH_MLX) clean
-			${RM} ${OBJS} ${OBJS_M} ${OBJS_B} ${OBJS_GNL} ${OBJS_LIBFT}
+			${RM} ${OBJS} ${OBJS_M} ${OBJS_B} ${OBJS_GNL} ${OBJS_SLG} ${OBJS_LIBFT}
 
 fclean: 	clean
 			make -C $(PATH_MLX) clean
