@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/29 20:48:52 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 13:23:31 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 #include "./gnl/get_next_line.h"
 #include "./libft/ft_printf.h"
 #include "./libft/libft/libft.h"
+
+static void load_game(struct s_game *game)
+{
+	game->win = mlx_new_window(game->mlx, game->size.x * game->spr_size.x, game->size.y * game->spr_size.y, "so_long");
+	game->player.spr.path = "./img/character.xpm";
+	game->spr_wall.path = "./img/rock.xpm";
+	game->spr_floor.path = "./img/grass.xpm";
+	game->spr_endclose.path = "./img/exitclose.xpm";
+	game->player.spr.img = mlx_xpm_file_to_image(game->mlx, game->player.spr.path, &game->spr_size.x, &game->spr_size.y);
+	game->spr_wall.img = mlx_xpm_file_to_image(game->mlx, game->spr_wall.path, &game->spr_size.x, &game->spr_size.y);
+	game->spr_floor.img = mlx_xpm_file_to_image(game->mlx, game->spr_floor.path, &game->spr_size.x, &game->spr_size.y);
+	game->spr_endclose.img = mlx_xpm_file_to_image(game->mlx, game->spr_endclose.path, &game->spr_size.x, &game->spr_size.y);
+	game->player.steps = 0;
+}
 
 static void readMap(struct s_game *game)
 {
@@ -42,17 +56,29 @@ static void readMap(struct s_game *game)
 	game->size.y = lines;
 }
 
-static void load_game(struct s_game *game)
+static void set_start_pos_char(t_game *game)
 {
-	game->win = mlx_new_window(game->mlx, game->size.x * game->spr_size.x, game->size.y * game->spr_size.y, "so_long");
-	game->player.spr.path = "./img/character.xpm";
-	game->spr_wall.path = "./img/rock.xpm";
-	game->spr_floor.path = "./img/grass.xpm";
-	game->spr_endclose.path = "./img/exitclose.xpm";
-	game->player.spr.img = mlx_xpm_file_to_image(game->mlx, game->player.spr.path, &game->spr_size.x, &game->spr_size.y);
-	game->spr_wall.img = mlx_xpm_file_to_image(game->mlx, game->spr_wall.path, &game->spr_size.x, &game->spr_size.y);
-	game->spr_floor.img = mlx_xpm_file_to_image(game->mlx, game->spr_floor.path, &game->spr_size.x, &game->spr_size.y);
-	game->spr_endclose.img = mlx_xpm_file_to_image(game->mlx, game->spr_endclose.path, &game->spr_size.x, &game->spr_size.y);
+	int x;
+	int y;
+	int	finded;
+
+	y = 0;
+	finded = 0;
+	while (y < game->size.y && !finded)
+	{
+		x = 0;
+		while (x < game->size.x && !finded)
+		{
+			if (game->map[y][x] == 'P')
+			{
+				game->player.pos.x = x;
+				game->player.pos.y = y;
+				finded = 1;
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
 static void draw_map(t_game game)
@@ -66,7 +92,9 @@ static void draw_map(t_game game)
 		x = 0;
 		while (x < game.size.x)
 		{
-			if(game.map[y][x] == '1')
+			if (game.player.pos.x == x && game.player.pos.y == y)
+				mlx_put_image_to_window(game.mlx, game.win, game.player.spr.img, game.player.pos.x * game.spr_size.x, game.player.pos.y * game.spr_size.y);
+			else if (game.map[y][x] == '1')
 				mlx_put_image_to_window(game.mlx, game.win, game.spr_wall.img, x * game.spr_size.x, y * game.spr_size.y);
 			else if(game.map[y][x] == 'E')
 				mlx_put_image_to_window(game.mlx, game.win, game.spr_endclose.img, x * game.spr_size.x, y * game.spr_size.y);
@@ -77,8 +105,50 @@ static void draw_map(t_game game)
 		y++;
 	}
 
-	mlx_put_image_to_window(game.mlx, game.win, game.player.spr.img, game.player.pos.x * game.spr_size.x, game.player.pos.y * game.spr_size.y);
 
+}
+
+static int update_game(t_game *game)
+{
+	draw_map(*game);
+	return (0);
+}
+
+static char who_in_map(t_vector2d pos, t_game game)
+{
+	if (pos.x < 0 || pos.y < 0)
+		return ('X');
+	if (pos.x >= game.size.x || pos.y >= game.size.y)
+		return ('X');
+	if (game.map[pos.y][pos.x] == '0' || game.map[pos.y][pos.x] == 'P')
+		return ('0');
+	return (game.map[pos.y][pos.x]);
+}
+
+static int move_char(int keycode, t_game *game)
+{
+	t_vector2d pos_mov;
+	pos_mov.x = game->player.pos.x;
+	pos_mov.y = game->player.pos.y;
+
+	if (keycode == 119)
+		pos_mov.y--;
+	else if (keycode == 97)
+		pos_mov.x--;
+	else if (keycode == 115)
+		pos_mov.y++;
+	else if (keycode == 100)
+		pos_mov.x++;
+	else
+		return (0);
+	if (who_in_map(pos_mov, *game) != 'X' && who_in_map(pos_mov, *game) != '1')
+	{
+		game->player.pos.x = pos_mov.x;
+		game->player.pos.y = pos_mov.y;
+		game->player.steps++;
+		ft_printf("steps: %d\n", game->player.steps);
+	}
+	return (0);
 }
 
 int	main(void)
@@ -88,21 +158,13 @@ int	main(void)
 	game.spr_size.x = 32;
 	game.spr_size.y = 32;
 	readMap(&game);
-
-
 	game.mlx = mlx_init();
 
-
-	//t_data	img;
-
-	//game.player.spr.path = "./img/character.xpm";
-	game.player.pos.x = 3;
-	game.player.pos.y = 2;
-
-
 	load_game(&game);
+	set_start_pos_char(&game);
 
-	//mlx_put_image_to_window(game.mlx, game.win, game.player.spr.img, game.player.pos.x, game.player.pos.y);
-	draw_map(game);
+	//draw_map(game);
+	mlx_loop_hook(game.mlx, update_game, &game);
+	mlx_hook(game.win, 02, 1L<<0, move_char, &game);
 	mlx_loop(game.mlx);
 }

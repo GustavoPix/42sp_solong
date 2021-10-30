@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/29 20:47:44 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 12:26:43 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct	s_player
 {
 	t_image		spr;
 	t_vector2d	pos;
-	int			score;
+	int			steps;
 }				t_player;
 
 typedef struct	s_game
