@@ -6,14 +6,14 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 14:32:30 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 14:57:33 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:00:50 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 #include "../libft/ft_printf.h"
 
-static int valid_player(t_game game)
+static int valid_only_one(t_game game, char c)
 {
 	int x;
 	int y;
@@ -26,7 +26,7 @@ static int valid_player(t_game game)
 		x = 0;
 		while (x < game.size.x)
 		{
-			if (game.map[y][x] == 'P')
+			if (game.map[y][x] == c)
 			{
 				if (count > 0)
 					return (0);
@@ -65,7 +65,7 @@ static int valid_wall(t_game game)
 
 int check_valid_map(t_game game)
 {
-	if (!valid_player(game))
+	if (!valid_only_one(game, 'P'))
 	{
 		ft_printf("Error: It's necessary only one player\n");
 		return (0);
@@ -73,6 +73,11 @@ int check_valid_map(t_game game)
 	if (!valid_wall(game))
 	{
 		ft_printf("Error: It's necessary to have a wall surrounding the room\n");
+		return (0);
+	}
+	if (!valid_only_one(game, 'E'))
+	{
+		ft_printf("Error: It's necessary only one exit\n");
 		return (0);
 	}
 	return (1);
