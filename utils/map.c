@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 14:32:30 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 15:00:50 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:03:27 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ int check_valid_map(t_game game)
 	if (!valid_only_one(game, 'E'))
 	{
 		ft_printf("Error: It's necessary only one exit\n");
+		return (0);
+	}
+	if (!count_coins(game))
+	{
+		ft_printf("Error: It's necessary one or more coins\n");
 		return (0);
 	}
 	return (1);
