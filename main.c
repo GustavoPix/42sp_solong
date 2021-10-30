@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 13:23:31 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 14:08:36 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,25 @@
 #include "./libft/ft_printf.h"
 #include "./libft/libft/libft.h"
 
-static void load_game(struct s_game *game)
+void load_game(struct s_game *game)
 {
 	game->win = mlx_new_window(game->mlx, game->size.x * game->spr_size.x, game->size.y * game->spr_size.y, "so_long");
 	game->player.spr.path = "./img/character.xpm";
 	game->spr_wall.path = "./img/rock.xpm";
 	game->spr_floor.path = "./img/grass.xpm";
 	game->spr_endclose.path = "./img/exitclose.xpm";
+	game->spr_endopen.path = "./img/exit.xpm";
+	game->spr_coin.path = "./img/coin.xpm";
 	game->player.spr.img = mlx_xpm_file_to_image(game->mlx, game->player.spr.path, &game->spr_size.x, &game->spr_size.y);
 	game->spr_wall.img = mlx_xpm_file_to_image(game->mlx, game->spr_wall.path, &game->spr_size.x, &game->spr_size.y);
 	game->spr_floor.img = mlx_xpm_file_to_image(game->mlx, game->spr_floor.path, &game->spr_size.x, &game->spr_size.y);
 	game->spr_endclose.img = mlx_xpm_file_to_image(game->mlx, game->spr_endclose.path, &game->spr_size.x, &game->spr_size.y);
+	game->spr_endopen.img = mlx_xpm_file_to_image(game->mlx, game->spr_endopen.path, &game->spr_size.x, &game->spr_size.y);
+	game->spr_coin.img = mlx_xpm_file_to_image(game->mlx, game->spr_coin.path, &game->spr_size.x, &game->spr_size.y);
 	game->player.steps = 0;
 }
 
-static void readMap(struct s_game *game)
+void readMap(struct s_game *game)
 {
 	int 	fd;
 	int		lines;
@@ -56,7 +60,7 @@ static void readMap(struct s_game *game)
 	game->size.y = lines;
 }
 
-static void set_start_pos_char(t_game *game)
+void set_start_pos_char(t_game *game)
 {
 	int x;
 	int y;
@@ -81,7 +85,7 @@ static void set_start_pos_char(t_game *game)
 	}
 }
 
-static void draw_map(t_game game)
+void draw_map(t_game game)
 {
 	int x;
 	int y;
@@ -97,18 +101,23 @@ static void draw_map(t_game game)
 			else if (game.map[y][x] == '1')
 				mlx_put_image_to_window(game.mlx, game.win, game.spr_wall.img, x * game.spr_size.x, y * game.spr_size.y);
 			else if(game.map[y][x] == 'E')
-				mlx_put_image_to_window(game.mlx, game.win, game.spr_endclose.img, x * game.spr_size.x, y * game.spr_size.y);
+			{
+				if (count_coins(game))
+					mlx_put_image_to_window(game.mlx, game.win, game.spr_endclose.img, x * game.spr_size.x, y * game.spr_size.y);
+				else
+					mlx_put_image_to_window(game.mlx, game.win, game.spr_endopen.img, x * game.spr_size.x, y * game.spr_size.y);
+			}
+			else if(game.map[y][x] == 'C')
+				mlx_put_image_to_window(game.mlx, game.win, game.spr_coin.img, x * game.spr_size.x, y * game.spr_size.y);
 			else
 				mlx_put_image_to_window(game.mlx, game.win, game.spr_floor.img, x * game.spr_size.x, y * game.spr_size.y);
 			x++;
 		}
 		y++;
 	}
-
-
 }
 
-static int update_game(t_game *game)
+int update_game(t_game *game)
 {
 	draw_map(*game);
 	return (0);
@@ -125,7 +134,37 @@ static char who_in_map(t_vector2d pos, t_game game)
 	return (game.map[pos.y][pos.x]);
 }
 
-static int move_char(int keycode, t_game *game)
+int count_coins(t_game game)
+{
+	int x;
+	int y;
+	int coins;
+
+	y = 0;
+	coins = 0;
+	while (y < game.size.y)
+	{
+		x = 0;
+		while (x < game.size.x)
+		{
+			if (game.map[y][x] == 'C')
+				coins++;
+			x++;
+		}
+		y++;
+	}
+	return (coins);
+}
+
+void collect_coin(t_vector2d pos, t_game game)
+{
+	if (game.map[pos.y][pos.x] == 'C')
+		game.map[pos.y][pos.x] = '0';
+	if (!count_coins(game))
+		ft_printf("No more coins\n");
+}
+
+int move_char(int keycode, t_game *game)
 {
 	t_vector2d pos_mov;
 	pos_mov.x = game->player.pos.x;
@@ -139,6 +178,11 @@ static int move_char(int keycode, t_game *game)
 		pos_mov.y++;
 	else if (keycode == 100)
 		pos_mov.x++;
+	else if (keycode == 65307)
+	{
+		mlx_destroy_window(game->mlx, game->win);
+		return (0);
+	}
 	else
 		return (0);
 	if (who_in_map(pos_mov, *game) != 'X' && who_in_map(pos_mov, *game) != '1')
@@ -147,6 +191,13 @@ static int move_char(int keycode, t_game *game)
 		game->player.pos.y = pos_mov.y;
 		game->player.steps++;
 		ft_printf("steps: %d\n", game->player.steps);
+		if (who_in_map(pos_mov, *game) == 'C')
+			collect_coin(pos_mov, *game);
+		if (who_in_map(pos_mov, *game) == 'E' && !count_coins(*game))
+		{
+			ft_printf("Finish game!\n");
+			mlx_destroy_window(game->mlx, game->win);
+		}
 	}
 	return (0);
 }

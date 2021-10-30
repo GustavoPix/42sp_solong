@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 12:26:43 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 14:03:29 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ typedef struct	s_game
 	t_image		spr_wall;
 	t_image		spr_floor;
 	t_image		spr_endclose;
+	t_image		spr_endopen;
+	t_image		spr_coin;
 }				t_game;
+
+void load_game(struct s_game *game);
+void readMap(struct s_game *game);
+void set_start_pos_char(t_game *game);
+void draw_map(t_game game);
+int update_game(t_game *game);
+int count_coins(t_game game);
+void collect_coin(t_vector2d pos, t_game game);
+int move_char(int keycode, t_game *game);
 
 #endif
