@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 15:04:35 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:37:19 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void readMap(struct s_game *game)
 	char	*aux;
 	char	*map;
 
-	fd = open("./maps/no_coins.ber",O_RDONLY);
+	fd = open("./maps/pdf2.ber",O_RDONLY);
 	aux = get_next_line(fd);
 	map = ft_strdup(aux);
 

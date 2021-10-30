@@ -6,12 +6,13 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 14:32:30 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 15:03:27 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:34:46 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 #include "../libft/ft_printf.h"
+#include "../libft/libft/libft.h"
 
 static int valid_only_one(t_game game, char c)
 {
@@ -63,8 +64,27 @@ static int valid_wall(t_game game)
 	return (1);
 }
 
+static int valid_map_size(t_game game)
+{
+	int y;
+
+	y = 0;
+	while (y < game.size.y)
+	{
+		if (ft_strlen(game.map[y]) != (unsigned int)game.size.x)
+			return (0);
+		y++;
+	}
+	return (1);
+}
+
 int check_valid_map(t_game game)
 {
+	if (!valid_map_size(game))
+	{
+		ft_printf("Error: Length of lines is not equals\n");
+		return (0);
+	}
 	if (!valid_only_one(game, 'P'))
 	{
 		ft_printf("Error: It's necessary only one player\n");
