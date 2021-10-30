@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 14:33:57 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 16:59:30 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct	s_vector2d {
 	int		y;
 }				t_vector2d;
 typedef struct	s_image {
-	char		*path;
 	void		*img;
 }				t_image;
 
@@ -63,5 +62,6 @@ int count_coins(t_game game);
 void collect_coin(t_vector2d pos, t_game game);
 int move_char(int keycode, t_game *game);
 int check_valid_map(t_game game);
+int close_game(t_game *game);
 
 #endif

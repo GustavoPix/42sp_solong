@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 15:37:19 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 17:01:14 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,43 +19,44 @@
 void load_game(struct s_game *game)
 {
 	game->win = mlx_new_window(game->mlx, game->size.x * game->spr_size.x, game->size.y * game->spr_size.y, "so_long");
-	game->player.spr.path = "./img/character.xpm";
-	game->spr_wall.path = "./img/rock.xpm";
-	game->spr_floor.path = "./img/grass.xpm";
-	game->spr_endclose.path = "./img/exitclose.xpm";
-	game->spr_endopen.path = "./img/exit.xpm";
-	game->spr_coin.path = "./img/coin.xpm";
-	game->player.spr.img = mlx_xpm_file_to_image(game->mlx, game->player.spr.path, &game->spr_size.x, &game->spr_size.y);
-	game->spr_wall.img = mlx_xpm_file_to_image(game->mlx, game->spr_wall.path, &game->spr_size.x, &game->spr_size.y);
-	game->spr_floor.img = mlx_xpm_file_to_image(game->mlx, game->spr_floor.path, &game->spr_size.x, &game->spr_size.y);
-	game->spr_endclose.img = mlx_xpm_file_to_image(game->mlx, game->spr_endclose.path, &game->spr_size.x, &game->spr_size.y);
-	game->spr_endopen.img = mlx_xpm_file_to_image(game->mlx, game->spr_endopen.path, &game->spr_size.x, &game->spr_size.y);
-	game->spr_coin.img = mlx_xpm_file_to_image(game->mlx, game->spr_coin.path, &game->spr_size.x, &game->spr_size.y);
+	game->player.spr.img = mlx_xpm_file_to_image(game->mlx, "./img/character.xpm", &game->spr_size.x, &game->spr_size.y);
+	game->spr_wall.img = mlx_xpm_file_to_image(game->mlx, "./img/rock.xpm", &game->spr_size.x, &game->spr_size.y);
+	game->spr_floor.img = mlx_xpm_file_to_image(game->mlx, "./img/grass.xpm", &game->spr_size.x, &game->spr_size.y);
+	game->spr_endclose.img = mlx_xpm_file_to_image(game->mlx, "./img/exitclose.xpm", &game->spr_size.x, &game->spr_size.y);
+	game->spr_endopen.img = mlx_xpm_file_to_image(game->mlx, "./img/exit.xpm", &game->spr_size.x, &game->spr_size.y);
+	game->spr_coin.img = mlx_xpm_file_to_image(game->mlx, "./img/coin.xpm", &game->spr_size.x, &game->spr_size.y);
 	game->player.steps = 0;
 }
 
-void readMap(struct s_game *game)
+void read_map(struct s_game *game)
 {
 	int 	fd;
 	int		lines;
 	char	*aux;
 	char	*map;
+	char	*swap;
 
-	fd = open("./maps/pdf2.ber",O_RDONLY);
+	fd = open("./maps/test_leak.ber",O_RDONLY);
 	aux = get_next_line(fd);
 	map = ft_strdup(aux);
 
 	lines = 1;
 	while (aux != NULL)
 	{
+		if (aux)
+			free(aux);
 		aux = get_next_line(fd);
 		if(aux)
 		{
+			swap = map;
 			map = ft_strjoin(map,aux);
+			free(swap);
 			lines++;
 		}
 	}
+	swap = map;
 	game->map = ft_split(map,'\n');
+	free(map);
 	game->size.x = ft_strlen(game->map[0]);
 	game->size.y = lines;
 }
@@ -180,7 +181,7 @@ int move_char(int keycode, t_game *game)
 		pos_mov.x++;
 	else if (keycode == 65307)
 	{
-		mlx_destroy_window(game->mlx, game->win);
+		close_game(game);
 		return (0);
 	}
 	else
@@ -196,9 +197,25 @@ int move_char(int keycode, t_game *game)
 		if (who_in_map(pos_mov, *game) == 'E' && !count_coins(*game))
 		{
 			ft_printf("Finish game!\n");
-			mlx_destroy_window(game->mlx, game->win);
+			close_game(game);
 		}
 	}
+	return (0);
+}
+
+int close_game(t_game *game)
+{
+	int y;
+
+	y = 0;
+	while (y < game->size.y)
+	{
+		ft_bzero(game->map[y],game->size.x);
+		free(game->map[y]);
+		y++;
+	}
+	free(game->map);
+	mlx_destroy_window(game->mlx, game->win);
 	return (0);
 }
 
@@ -206,7 +223,7 @@ int	main(void)
 {
 	t_game	game;
 
-	readMap(&game);
+	read_map(&game);
 	if (check_valid_map(game))
 	{
 		game.spr_size.x = 32;
@@ -218,7 +235,8 @@ int	main(void)
 
 		//draw_map(game);
 		mlx_loop_hook(game.mlx, update_game, &game);
-		mlx_hook(game.win, 02, 1L<<0, move_char, &game);
+		mlx_hook(game.win, 2, 1L<<0, move_char, &game);
+		mlx_hook(game.win, 17, 0L, close_game, &game);
 		mlx_loop(game.mlx);
 	}
 	return (0);
