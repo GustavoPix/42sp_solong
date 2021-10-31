@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 11:34:37 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 12:05:34 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ int close_game(t_game *game)
 		y++;
 	}
 	free(game->map);
+	mlx_clear_window(game->mlx,game->win);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_image(game->mlx,game->spr_wall.img);
 	mlx_destroy_image(game->mlx,game->spr_coin.img);
@@ -223,6 +224,8 @@ int close_game(t_game *game)
 	mlx_destroy_image(game->mlx,game->spr_endopen.img);
 	mlx_destroy_image(game->mlx,game->spr_floor.img);
 	mlx_destroy_image(game->mlx,game->player.spr.img);
+	mlx_destroy_display(game->mlx);
+	//mlx_loop_end(game->mlx);
 	free(game->mlx);
 	return (0);
 }
