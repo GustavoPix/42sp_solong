@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 12:39:08 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 12:49:18 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ int close_game(t_game *game)
 	free(game->mlx);
 
 	exit(0);
-	return (1);
+	return (0);
 }
 
 int	main(void)
