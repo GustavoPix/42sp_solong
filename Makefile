@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 20:26:23 by glima-de          #+#    #+#              #
-#    Updated: 2021/10/31 15:13:10 by glima-de         ###   ########.fr        #
+#    Updated: 2021/10/31 16:23:14 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ SLG_UTL		= ./utils/map.c \
 			  ./utils/clear.c \
 			  ./utils/loads.c \
 			  ./utils/updates.c \
-			  ./utils/draws.c
+			  ./utils/draws.c \
+			  ./utils/read_map.c
 
 OBJS_GNL	= ${GNL:.c=.o}
 OBJS_LIBFT	= ${LIBFT:.c=.o}
