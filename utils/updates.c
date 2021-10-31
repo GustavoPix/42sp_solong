@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:01:10 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 16:47:36 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 16:50:34 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,3 @@ int	catch_input(int keycode, t_game *game)
 		move_char(game, pos_mov);
 	return (0);
 }
-
