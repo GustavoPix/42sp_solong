@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 14:57:31 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 16:48:18 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void draw_map(t_game game);
 int update_game(t_game *game);
 int count_coins(t_game game);
 void collect_coin(t_vector2d pos, t_game game);
-int move_char(int keycode, t_game *game);
+int	catch_input(int keycode, t_game *game);
 int check_valid_map(t_game game);
 int close_game(t_game *game);
 int read_map(t_game *game, char *path);

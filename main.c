@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 16:23:43 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 16:48:30 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char *argv[])
 		{
 			set_start_pos_char(&game);
 			mlx_loop_hook(game.mlx, update_game, &game);
-			mlx_hook(game.win, 2, 1L << 0, move_char, &game);
+			mlx_hook(game.win, 2, 1L << 0, catch_input, &game);
 			mlx_hook(game.win, 17, 0L, close_game, &game);
 			mlx_loop(game.mlx);
 		}
