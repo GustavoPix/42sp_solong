@@ -6,10 +6,11 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 13:56:55 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 13:59:43 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 14:52:08 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../mlx/mlx.h"
 #include "../so_long.h"
 #include "../libft/libft/libft.h"
 
@@ -25,4 +26,29 @@ void clear_map(t_game *game)
 		y++;
 	}
 	free(game->map);
+}
+
+int close_game(t_game *game)
+{
+	clear_map(game);
+	mlx_clear_window(game->mlx,game->win);
+	mlx_loop_end(game->win);
+	if (game->spr_wall.img)
+		mlx_destroy_image(game->mlx,game->spr_wall.img);
+	if (game->spr_coin.img)
+		mlx_destroy_image(game->mlx,game->spr_coin.img);
+	if (game->spr_eclose.img)
+		mlx_destroy_image(game->mlx,game->spr_eclose.img);
+	if (game->spr_eopen.img)
+		mlx_destroy_image(game->mlx,game->spr_eopen.img);
+	if (game->spr_floor.img)
+		mlx_destroy_image(game->mlx,game->spr_floor.img);
+	if (game->player.spr.img)
+		mlx_destroy_image(game->mlx,game->player.spr.img);
+	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+
+	exit(0);
+	return (0);
 }

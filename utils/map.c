@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 14:32:30 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 13:55:50 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 14:54:45 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,15 @@ int check_valid_map(t_game game)
 		return (0);
 	}
 	return (1);
+}
+
+char who_in_map(t_vector2d pos, t_game game)
+{
+	if (pos.x < 0 || pos.y < 0)
+		return ('X');
+	if (pos.x >= game.size.x || pos.y >= game.size.y)
+		return ('X');
+	if (game.map[pos.y][pos.x] == '0' || game.map[pos.y][pos.x] == 'P')
+		return ('0');
+	return (game.map[pos.y][pos.x]);
 }

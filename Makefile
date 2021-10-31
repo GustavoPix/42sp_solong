@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 20:26:23 by glima-de          #+#    #+#              #
-#    Updated: 2021/10/31 13:59:23 by glima-de         ###   ########.fr        #
+#    Updated: 2021/10/31 15:03:55 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,10 @@ GNL			= ./gnl/get_next_line.c \
 			  ./gnl/get_next_line_utils.c
 
 SLG_UTL		= ./utils/map.c \
-			  ./utils/clear.c
+			  ./utils/clear.c \
+			  ./utils/loads.c \
+			  ./utils/updates.c \
+			  ./utils/draws.c
 
 OBJS_GNL	= ${GNL:.c=.o}
 OBJS_LIBFT	= ${LIBFT:.c=.o}
