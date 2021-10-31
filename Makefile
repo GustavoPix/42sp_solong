@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 20:26:23 by glima-de          #+#    #+#              #
-#    Updated: 2021/10/30 16:30:05 by glima-de         ###   ########.fr        #
+#    Updated: 2021/10/30 21:33:21 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,11 +82,11 @@ FLAGS		= -ldl -Imlx -Lmlx -lmlx -lm -lbsd -lXext -lX11 -Wl,-rpath=./bass/,-rpath
 all: 		${NAME}
 
 .c.o:
-			${CC} ${CFLAGS} -Imlx -Ibass -c $< -o ${<:.c=.o}
+			${CC} -g ${CFLAGS} -Imlx -Ibass -c $< -o ${<:.c=.o}
 
 $(NAME): 	$(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG}
 			make -C $(PATH_MLX)
-			${CC} $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG} $(FLAGS)
+			${CC} -g $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG} $(FLAGS)
 
 bonus:		${OBJS} ${OBJS_B}
 			make -C $(PATH_MLX)
