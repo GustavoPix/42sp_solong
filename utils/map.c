@@ -6,13 +6,51 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 14:32:30 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 15:34:46 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 13:55:50 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 #include "../libft/ft_printf.h"
 #include "../libft/libft/libft.h"
+#include "../gnl/get_next_line.h"
+
+int read_map(t_game *game, char *path)
+{
+	int 	fd;
+	int		lines;
+	char	*aux;
+	char	*map;
+	char	*swap;
+
+	fd = open(path,O_RDONLY);
+	if (fd < 1)
+		return (0);
+	aux = get_next_line(fd);
+	map = ft_strdup(aux);
+
+	lines = 1;
+	while (aux != NULL)
+	{
+		if (aux)
+			free(aux);
+		aux = get_next_line(fd);
+		if(aux)
+		{
+			swap = map;
+			map = ft_strjoin(map,aux);
+			free(swap);
+			lines++;
+		}
+	}
+	close(fd);
+	swap = map;
+	game->map = ft_split(map,'\n');
+	free(map);
+	game->size.x = ft_strlen(game->map[0]);
+	game->size.y = lines;
+	return (1);
+}
 
 static int valid_only_one(t_game game, char c)
 {

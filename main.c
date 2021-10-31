@@ -6,13 +6,12 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 13:18:42 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 14:00:51 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./mlx/mlx.h"
 #include "./so_long.h"
-#include "./gnl/get_next_line.h"
 #include "./libft/ft_printf.h"
 #include "./libft/libft/libft.h"
 
@@ -44,39 +43,7 @@ void load_game(t_game *game)
 	game->player.steps = 0;
 }
 
-void read_map(t_game *game)
-{
-	int 	fd;
-	int		lines;
-	char	*aux;
-	char	*map;
-	char	*swap;
 
-	fd = open("./maps/test_leak.ber",O_RDONLY);
-	aux = get_next_line(fd);
-	map = ft_strdup(aux);
-
-	lines = 1;
-	while (aux != NULL)
-	{
-		if (aux)
-			free(aux);
-		aux = get_next_line(fd);
-		if(aux)
-		{
-			swap = map;
-			map = ft_strjoin(map,aux);
-			free(swap);
-			lines++;
-		}
-	}
-	close(fd);
-	swap = map;
-	game->map = ft_split(map,'\n');
-	free(map);
-	game->size.x = ft_strlen(game->map[0]);
-	game->size.y = lines;
-}
 
 void set_start_pos_char(t_game *game)
 {
@@ -223,16 +190,7 @@ int move_char(int keycode, t_game *game)
 
 int close_game(t_game *game)
 {
-	int y;
-
-	y = 0;
-	while (y < game->size.y)
-	{
-		ft_bzero(game->map[y],game->size.x);
-		free(game->map[y]);
-		y++;
-	}
-	free(game->map);
+	clear_map(game);
 	mlx_clear_window(game->mlx,game->win);
 	mlx_loop_end(game->win);
 	mlx_destroy_image(game->mlx,game->spr_wall.img);
@@ -249,12 +207,15 @@ int close_game(t_game *game)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_game	game;
 
-	read_map(&game);
-	if (check_valid_map(game))
+	if (argc < 2)
+		printf("Error: You need pass map in argument\n");
+	else if (!read_map(&game, argv[1]))
+		printf("Error: Failed to read map\n");
+	else if (check_valid_map(game))
 	{
 		game.spr_size.x = 32;
 		game.spr_size.y = 32;
@@ -269,5 +230,7 @@ int	main(void)
 		mlx_hook(game.win, 17, 0L, close_game, &game);
 		mlx_loop(game.mlx);
 	}
+	else
+		clear_map(&game);
 	return (0);
 }

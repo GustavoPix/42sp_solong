@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 13:18:55 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 13:58:57 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct	s_game
 }				t_game;
 
 void load_game(t_game *game);
-void readMap(struct s_game *game);
 void set_start_pos_char(t_game *game);
 void draw_map(t_game game);
 int update_game(t_game *game);
@@ -63,5 +62,7 @@ void collect_coin(t_vector2d pos, t_game game);
 int move_char(int keycode, t_game *game);
 int check_valid_map(t_game game);
 int close_game(t_game *game);
+int read_map(t_game *game, char *path);
+void clear_map(t_game *game);
 
 #endif
