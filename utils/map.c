@@ -6,13 +6,12 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 14:32:30 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 14:54:45 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 15:13:47 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-#include "../libft/ft_printf.h"
-#include "../libft/libft/libft.h"
+#include "../libft/libft.h"
 #include "../gnl/get_next_line.h"
 
 int read_map(t_game *game, char *path)
@@ -120,27 +119,27 @@ int check_valid_map(t_game game)
 {
 	if (!valid_map_size(game))
 	{
-		ft_printf("Error: Length of lines is not equals\n");
+		printf("Error: Length of lines is not equals\n");
 		return (0);
 	}
 	if (!valid_only_one(game, 'P'))
 	{
-		ft_printf("Error: It's necessary only one player\n");
+		printf("Error: It's necessary only one player\n");
 		return (0);
 	}
 	if (!valid_wall(game))
 	{
-		ft_printf("Error: It's necessary to have a wall surrounding the room\n");
+		printf("Error: It's necessary to have a wall surrounding the room\n");
 		return (0);
 	}
 	if (!valid_only_one(game, 'E'))
 	{
-		ft_printf("Error: It's necessary only one exit\n");
+		printf("Error: It's necessary only one exit\n");
 		return (0);
 	}
 	if (!count_coins(game))
 	{
-		ft_printf("Error: It's necessary one or more coins\n");
+		printf("Error: It's necessary one or more coins\n");
 		return (0);
 	}
 	return (1);

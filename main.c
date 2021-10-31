@@ -6,14 +6,13 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 15:03:13 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 15:12:03 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./mlx/mlx.h"
 #include "./so_long.h"
-#include "./libft/ft_printf.h"
-#include "./libft/libft/libft.h"
+#include "./libft/libft.h"
 
 int	main(int argc, char *argv[])
 {

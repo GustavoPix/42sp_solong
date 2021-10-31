@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 20:26:23 by glima-de          #+#    #+#              #
-#    Updated: 2021/10/31 15:03:55 by glima-de         ###   ########.fr        #
+#    Updated: 2021/10/31 15:13:10 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,51 +18,43 @@ OBJS 		= ${SRCS:.c=.o}
 OBJS_B		= ${SRCS_BONUS:.c=.o}
 OBJS_M		= ${SRCS_MANDATORY:.c=.o}
 
-LIBFT 		= ./libft/libft/ft_atoi.c \
-			  ./libft/libft/ft_bzero.c \
-			  ./libft/libft/ft_calloc.c \
-			  ./libft/libft/ft_isalnum.c \
-			  ./libft/libft/ft_isalpha.c \
-			  ./libft/libft/ft_isascii.c \
-			  ./libft/libft/ft_isdigit.c \
-			  ./libft/libft/ft_isprint.c \
-			  ./libft/libft/ft_itoa.c \
-			  ./libft/libft/ft_memchr.c \
-			  ./libft/libft/ft_memcpy.c \
-			  ./libft/libft/ft_memmove.c \
-			  ./libft/libft/ft_memset.c \
-			  ./libft/libft/ft_putchar_fd.c \
-			  ./libft/libft/ft_putendl_fd.c \
-			  ./libft/libft/ft_putnbr_fd.c \
-			  ./libft/libft/ft_putunbr_fd.c \
-			  ./libft/libft/ft_putstr_fd.c \
-			  ./libft/libft/ft_split.c \
-			  ./libft/libft/ft_strchr.c \
-			  ./libft/libft/ft_strdup.c \
-			  ./libft/libft/ft_striteri.c \
-			  ./libft/libft/ft_strjoin.c \
-			  ./libft/libft/ft_strlcat.c \
-			  ./libft/libft/ft_strlcpy.c \
-			  ./libft/libft/ft_strlen.c \
-			  ./libft/libft/ft_strmapi.c \
-			  ./libft/libft/ft_strncmp.c \
-			  ./libft/libft/ft_strnstr.c \
-			  ./libft/libft/ft_strrchr.c \
-			  ./libft/libft/ft_strtrim.c \
-			  ./libft/libft/ft_substr.c \
-			  ./libft/libft/ft_tolower.c \
-			  ./libft/libft/ft_toupper.c \
-			  ./libft/libft/ft_memcmp.c \
-			  ./libft/utils/prf_dec_to_base.c \
-			  ./libft/utils/prf_print_d.c \
-			  ./libft/utils/prf_print_p.c \
-			  ./libft/utils/prf_print_s.c \
-			  ./libft/utils/prf_print_u.c \
-			  ./libft/utils/prf_print_x.c \
-			  ./libft/ft_printf.c
+LIBFT 		= ./libft/ft_atoi.c \
+			  ./libft/ft_bzero.c \
+			  ./libft/ft_calloc.c \
+			  ./libft/ft_isalnum.c \
+			  ./libft/ft_isalpha.c \
+			  ./libft/ft_isascii.c \
+			  ./libft/ft_isdigit.c \
+			  ./libft/ft_isprint.c \
+			  ./libft/ft_itoa.c \
+			  ./libft/ft_memchr.c \
+			  ./libft/ft_memcpy.c \
+			  ./libft/ft_memmove.c \
+			  ./libft/ft_memset.c \
+			  ./libft/ft_putchar_fd.c \
+			  ./libft/ft_putendl_fd.c \
+			  ./libft/ft_putnbr_fd.c \
+			  ./libft/ft_putunbr_fd.c \
+			  ./libft/ft_putstr_fd.c \
+			  ./libft/ft_split.c \
+			  ./libft/ft_strchr.c \
+			  ./libft/ft_strdup.c \
+			  ./libft/ft_striteri.c \
+			  ./libft/ft_strjoin.c \
+			  ./libft/ft_strlcat.c \
+			  ./libft/ft_strlcpy.c \
+			  ./libft/ft_strlen.c \
+			  ./libft/ft_strmapi.c \
+			  ./libft/ft_strncmp.c \
+			  ./libft/ft_strnstr.c \
+			  ./libft/ft_strrchr.c \
+			  ./libft/ft_strtrim.c \
+			  ./libft/ft_substr.c \
+			  ./libft/ft_tolower.c \
+			  ./libft/ft_toupper.c \
+			  ./libft/ft_memcmp.c
 
-GNL			= ./gnl/get_next_line.c \
-			  ./gnl/get_next_line_utils.c
+GNL			= ./gnl/get_next_line.c
 
 SLG_UTL		= ./utils/map.c \
 			  ./utils/clear.c \

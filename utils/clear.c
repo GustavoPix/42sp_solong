@@ -6,13 +6,13 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 13:56:55 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 14:52:08 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 15:14:07 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx/mlx.h"
 #include "../so_long.h"
-#include "../libft/libft/libft.h"
+#include "../libft/libft.h"
 
 void clear_map(t_game *game)
 {
