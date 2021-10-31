@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 22:49:47 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/30 23:04:39 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "./libft/ft_printf.h"
 #include "./libft/libft/libft.h"
 
-void load_game(struct s_game *game)
+void load_game(t_game *game)
 {
 	game->win = mlx_new_window(game->mlx, game->size.x * game->spr_size.x, game->size.y * game->spr_size.y, "so_long");
 	game->player.spr.img = mlx_xpm_file_to_image(game->mlx, "./img/character.xpm", &game->spr_size.x, &game->spr_size.y);
@@ -28,7 +28,7 @@ void load_game(struct s_game *game)
 	game->player.steps = 0;
 }
 
-void read_map(struct s_game *game)
+void read_map(t_game *game)
 {
 	int 	fd;
 	int		lines;
