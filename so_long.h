@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/30 22:56:55 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 13:18:55 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct	s_game
 	t_player	player;
 	t_image		spr_wall;
 	t_image		spr_floor;
-	t_image		spr_endclose;
-	t_image		spr_endopen;
+	t_image		spr_eclose;
+	t_image		spr_eopen;
 	t_image		spr_coin;
 }				t_game;
 

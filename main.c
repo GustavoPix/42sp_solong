@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 12:49:18 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/10/31 13:18:42 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,31 @@
 #include "./libft/ft_printf.h"
 #include "./libft/libft/libft.h"
 
+static void *mlx_put_img(void *mlx, char *path, int x, int y)
+{
+	return (mlx_xpm_file_to_image(mlx, path, &x, &y));
+}
+
 void load_game(t_game *game)
 {
-	game->win = mlx_new_window(game->mlx, game->size.x * game->spr_size.x, game->size.y * game->spr_size.y, "so_long");
-	game->player.spr.img = mlx_xpm_file_to_image(game->mlx, "./img/character.xpm", &game->spr_size.x, &game->spr_size.y);
-	game->spr_wall.img = mlx_xpm_file_to_image(game->mlx, "./img/rock.xpm", &game->spr_size.x, &game->spr_size.y);
-	game->spr_floor.img = mlx_xpm_file_to_image(game->mlx, "./img/grass.xpm", &game->spr_size.x, &game->spr_size.y);
-	game->spr_endclose.img = mlx_xpm_file_to_image(game->mlx, "./img/exitclose.xpm", &game->spr_size.x, &game->spr_size.y);
-	game->spr_endopen.img = mlx_xpm_file_to_image(game->mlx, "./img/exit.xpm", &game->spr_size.x, &game->spr_size.y);
-	game->spr_coin.img = mlx_xpm_file_to_image(game->mlx, "./img/coin.xpm", &game->spr_size.x, &game->spr_size.y);
+	int		sprx;
+	int		spry;
+	int		gsx;
+	int		gsy;
+	void	*mlx;
+
+	sprx = game->spr_size.x;
+	spry = game->spr_size.y;
+	mlx = game->mlx;
+	gsx = game->size.x;
+	gsy = game->size.y;
+	game->win = mlx_new_window(mlx, gsx * sprx, gsy * spry, "so_long");
+	game->player.spr.img = mlx_put_img(mlx, "./img/character.xpm", sprx, spry);
+	game->spr_wall.img = mlx_put_img(mlx, "./img/rock.xpm", sprx, spry);
+	game->spr_floor.img = mlx_put_img(mlx, "./img/grass.xpm", sprx, spry);
+	game->spr_eclose.img = mlx_put_img(mlx, "./img/exitclose.xpm", sprx, spry);
+	game->spr_eopen.img = mlx_put_img(mlx, "./img/exit.xpm", sprx, spry);
+	game->spr_coin.img = mlx_put_img(mlx, "./img/coin.xpm", sprx, spry);
 	game->player.steps = 0;
 }
 
@@ -105,9 +121,9 @@ void draw_map(t_game game)
 			else if(game.map[y][x] == 'E')
 			{
 				if (count_coins(game))
-					mlx_put_image_to_window(game.mlx, game.win, game.spr_endclose.img, x * game.spr_size.x, y * game.spr_size.y);
+					mlx_put_image_to_window(game.mlx, game.win, game.spr_eclose.img, x * game.spr_size.x, y * game.spr_size.y);
 				else
-					mlx_put_image_to_window(game.mlx, game.win, game.spr_endopen.img, x * game.spr_size.x, y * game.spr_size.y);
+					mlx_put_image_to_window(game.mlx, game.win, game.spr_eopen.img, x * game.spr_size.x, y * game.spr_size.y);
 			}
 			else if(game.map[y][x] == 'C')
 				mlx_put_image_to_window(game.mlx, game.win, game.spr_coin.img, x * game.spr_size.x, y * game.spr_size.y);
@@ -221,8 +237,8 @@ int close_game(t_game *game)
 	mlx_loop_end(game->win);
 	mlx_destroy_image(game->mlx,game->spr_wall.img);
 	mlx_destroy_image(game->mlx,game->spr_coin.img);
-	mlx_destroy_image(game->mlx,game->spr_endclose.img);
-	mlx_destroy_image(game->mlx,game->spr_endopen.img);
+	mlx_destroy_image(game->mlx,game->spr_eclose.img);
+	mlx_destroy_image(game->mlx,game->spr_eopen.img);
 	mlx_destroy_image(game->mlx,game->spr_floor.img);
 	mlx_destroy_image(game->mlx,game->player.spr.img);
 	mlx_destroy_window(game->mlx, game->win);
