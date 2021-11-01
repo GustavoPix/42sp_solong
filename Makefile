@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 20:26:23 by glima-de          #+#    #+#              #
-#    Updated: 2021/10/31 16:23:14 by glima-de         ###   ########.fr        #
+#    Updated: 2021/11/01 19:58:43 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@
 SRCS_MANDATORY = ./main.c \
 
 OBJS 		= ${SRCS:.c=.o}
-OBJS_B		= ${SRCS_BONUS:.c=.o}
 OBJS_M		= ${SRCS_MANDATORY:.c=.o}
 
 LIBFT 		= ./libft/ft_atoi.c \
@@ -85,13 +84,9 @@ $(NAME): 	$(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG}
 			make -C $(PATH_MLX)
 			${CC} -g $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG} $(FLAGS)
 
-bonus:		${OBJS} ${OBJS_B}
-			make -C $(PATH_MLX)
-			${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${OBJS_B} $(FLAGS)
-
 clean:
 			make -C $(PATH_MLX) clean
-			${RM} ${OBJS} ${OBJS_M} ${OBJS_B} ${OBJS_GNL} ${OBJS_SLG} ${OBJS_LIBFT}
+			${RM} ${OBJS} ${OBJS_M} ${OBJS_GNL} ${OBJS_SLG} ${OBJS_LIBFT}
 
 fclean: 	clean
 			make -C $(PATH_MLX) clean
@@ -101,6 +96,7 @@ re: 		fclean all
 
 test:		all
 			./so_long
+
 val:		all
 			valgrind --leak-check=full ./so_long
 
