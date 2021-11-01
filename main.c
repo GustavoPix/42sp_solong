@@ -6,12 +6,36 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:56:51 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 16:48:30 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/01 20:06:41 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./mlx/mlx.h"
 #include "./so_long.h"
+
+int	catch_input(int keycode, t_game *game)
+{
+	t_vector2d	pos_mov;
+
+	pos_mov.x = 0;
+	pos_mov.y = 0;
+	if (keycode == 65307)
+	{
+		close_game(game);
+		return (0);
+	}
+	else if (keycode == 119)
+		pos_mov.y--;
+	else if (keycode == 97)
+		pos_mov.x--;
+	else if (keycode == 115)
+		pos_mov.y++;
+	else if (keycode == 100)
+		pos_mov.x++;
+	if (pos_mov.x != 0 || pos_mov.y != 0)
+		move_char(game, pos_mov);
+	return (0);
+}
 
 int	main(int argc, char *argv[])
 {

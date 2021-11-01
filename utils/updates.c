@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:01:10 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 16:50:34 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/01 20:18:50 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	collect_coin(t_vector2d pos, t_game game)
 		printf("No more coins\n");
 }
 
-static int	move_char(t_game *game, t_vector2d mov)
+int	move_char(t_game *game, t_vector2d mov)
 {
 	mov.x += game->player.pos.x;
 	mov.y += game->player.pos.y;
@@ -69,26 +69,13 @@ static int	move_char(t_game *game, t_vector2d mov)
 	return (1);
 }
 
-int	catch_input(int keycode, t_game *game)
+char	who_in_map(t_vector2d pos, t_game game)
 {
-	t_vector2d	pos_mov;
-
-	pos_mov.x = 0;
-	pos_mov.y = 0;
-	if (keycode == 65307)
-	{
-		close_game(game);
-		return (0);
-	}
-	else if (keycode == 119)
-		pos_mov.y--;
-	else if (keycode == 97)
-		pos_mov.x--;
-	else if (keycode == 115)
-		pos_mov.y++;
-	else if (keycode == 100)
-		pos_mov.x++;
-	if (pos_mov.x != 0 || pos_mov.y != 0)
-		move_char(game, pos_mov);
-	return (0);
+	if (pos.x < 0 || pos.y < 0)
+		return ('X');
+	if (pos.x >= game.size.x || pos.y >= game.size.y)
+		return ('X');
+	if (game.map[pos.y][pos.x] == '0' || game.map[pos.y][pos.x] == 'P')
+		return ('0');
+	return (game.map[pos.y][pos.x]);
 }

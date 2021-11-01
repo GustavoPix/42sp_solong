@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/01 19:59:13 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/01 20:19:05 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int		close_game(t_game *game);
 int		read_map(t_game *game, char *path);
 void	clear_map(t_game *game);
 char	who_in_map(t_vector2d pos, t_game game);
+int		move_char(t_game *game, t_vector2d mov);
 
 #endif

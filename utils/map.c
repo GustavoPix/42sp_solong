@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 14:32:30 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 16:33:55 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/01 20:21:27 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,37 @@ static int	valid_map_size(t_game game)
 	return (1);
 }
 
+static int	valid_chars(t_game game)
+{
+	int		x;
+	int		y;
+	char	*valid;
+
+	y = 0;
+	valid = "1PCE0";
+	while (y < game.size.y)
+	{
+		x = 0;
+		while (x < game.size.x)
+		{
+			if (!ft_strchr(valid, game.map[y][x]))
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
 int	check_valid_map(t_game game)
 {
 	if (!valid_map_size(game))
 		return (0);
+	if (!valid_chars(game))
+	{
+		printf("Invalid char detected in map\n");
+		return (0);
+	}
 	if (!valid_only_one(game, 'P', "Error: It's necessary only one player"))
 		return (0);
 	if (!valid_wall(game))
@@ -103,15 +130,4 @@ int	check_valid_map(t_game game)
 		return (0);
 	}
 	return (1);
-}
-
-char	who_in_map(t_vector2d pos, t_game game)
-{
-	if (pos.x < 0 || pos.y < 0)
-		return ('X');
-	if (pos.x >= game.size.x || pos.y >= game.size.y)
-		return ('X');
-	if (game.map[pos.y][pos.x] == '0' || game.map[pos.y][pos.x] == 'P')
-		return ('0');
-	return (game.map[pos.y][pos.x]);
 }

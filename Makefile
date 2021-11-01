@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 20:26:23 by glima-de          #+#    #+#              #
-#    Updated: 2021/11/01 20:02:16 by glima-de         ###   ########.fr        #
+#    Updated: 2021/11/01 20:03:09 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,4 +100,4 @@ test:		all
 val:		all
 			valgrind --leak-check=full ./so_long ./maps/test_leak.ber
 
-.PHONY:		bonus all clean fclean re test val
+.PHONY:		all clean fclean re test val
