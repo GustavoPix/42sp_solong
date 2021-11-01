@@ -6,39 +6,36 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:43:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/10/31 16:48:18 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/01 19:45:06 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
 # include <unistd.h>
 # include <stdlib.h>
-
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-
 # include <stdio.h>
 
-typedef struct	s_vector2d {
+typedef struct s_vector2d {
 	int		x;
 	int		y;
 }				t_vector2d;
-typedef struct	s_image {
+typedef struct s_image {
 	void		*img;
 }				t_image;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	t_image		spr;
 	t_vector2d	pos;
 	int			steps;
 }				t_player;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	char		**map;
 	void		*mlx;
@@ -53,17 +50,17 @@ typedef struct	s_game
 	t_image		spr_coin;
 }				t_game;
 
-int load_game(t_game *game);
-void set_start_pos_char(t_game *game);
-void draw_map(t_game game);
-int update_game(t_game *game);
-int count_coins(t_game game);
-void collect_coin(t_vector2d pos, t_game game);
-int	catch_input(int keycode, t_game *game);
-int check_valid_map(t_game game);
-int close_game(t_game *game);
-int read_map(t_game *game, char *path);
-void clear_map(t_game *game);
-char who_in_map(t_vector2d pos, t_game game);
+int		load_game(t_game *game);
+void	set_start_pos_char(t_game *game);
+void	draw_map(t_game game);
+int		update_game(t_game *game);
+int		count_coins(t_game game);
+void	collect_coin(t_vector2d pos, t_game game);
+int		catch_input(int keycode, t_game *game);
+int		check_valid_map(t_game game);
+int		close_game(t_game *game);
+int		read_map(t_game *game, char *path);
+void	clear_map(t_game *game);
+char	who_in_map(t_vector2d pos, t_game game);
 
 #endif
