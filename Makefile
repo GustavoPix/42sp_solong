@@ -80,9 +80,12 @@ all: 		${NAME}
 .c.o:
 			${CC} -g ${CFLAGS} -Imlx -Ibass -c $< -o ${<:.c=.o}
 
-$(NAME): 	$(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG}
+$(NAME): 	gclone $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG}
 			make -C $(PATH_MLX)
 			${CC} -g $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG} $(FLAGS)
+
+gclone:		
+			if [ ! -d "./mlx" ] ; then git clone https://github.com/42Paris/minilibx-linux.git mlx ; fi
 
 clean:
 			make -C $(PATH_MLX) clean
