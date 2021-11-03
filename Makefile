@@ -10,8 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
-
 SRCS_MANDATORY = ./main.c \
 
 OBJS 		= ${SRCS:.c=.o}
@@ -93,6 +91,7 @@ clean:
 
 fclean: 	clean
 			make -C $(PATH_MLX) clean
+			rm -rf mlx
 			${RM} ${NAME}
 
 re: 		fclean all
@@ -103,4 +102,4 @@ test:		all
 val:		all
 			valgrind --leak-check=full ./so_long ./maps/test_leak.ber
 
-.PHONY:		all clean fclean re test val
+.PHONY:		all gclone clean fclean re test val
