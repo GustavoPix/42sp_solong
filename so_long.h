@@ -15,6 +15,8 @@
 
 # include <fcntl.h>
 # include <stdio.h>
+# include "libft.h"
+# include "./mlx/mlx.h"
 
 typedef struct s_vector2d {
 	int		x;

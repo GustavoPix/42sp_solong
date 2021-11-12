@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../so_long.h"
-#include "../libft/libft.h"
 
 static int	valid_only_one(t_game game, char c, char *err)
 {

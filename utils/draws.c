@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../so_long.h"
-#include "../mlx/mlx.h"
 
 static void	mlx_put_img(t_game game, void *spr, t_vector2d p)
 {

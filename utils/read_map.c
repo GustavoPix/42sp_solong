@@ -12,7 +12,6 @@
 
 #include "../so_long.h"
 #include "../gnl/get_next_line.h"
-#include "../libft/libft.h"
 
 static void	read_map_loop(t_game *game, char *aux, int fd)
 {

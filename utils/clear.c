@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mlx/mlx.h"
 #include "../so_long.h"
-#include "../libft/libft.h"
 
 void	clear_map(t_game *game)
 {

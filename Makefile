@@ -15,41 +15,7 @@ SRCS_MANDATORY = ./main.c \
 OBJS 		= ${SRCS:.c=.o}
 OBJS_M		= ${SRCS_MANDATORY:.c=.o}
 
-LIBFT 		= ./libft/ft_atoi.c \
-			  ./libft/ft_bzero.c \
-			  ./libft/ft_calloc.c \
-			  ./libft/ft_isalnum.c \
-			  ./libft/ft_isalpha.c \
-			  ./libft/ft_isascii.c \
-			  ./libft/ft_isdigit.c \
-			  ./libft/ft_isprint.c \
-			  ./libft/ft_itoa.c \
-			  ./libft/ft_memchr.c \
-			  ./libft/ft_memcpy.c \
-			  ./libft/ft_memmove.c \
-			  ./libft/ft_memset.c \
-			  ./libft/ft_putchar_fd.c \
-			  ./libft/ft_putendl_fd.c \
-			  ./libft/ft_putnbr_fd.c \
-			  ./libft/ft_putunbr_fd.c \
-			  ./libft/ft_putstr_fd.c \
-			  ./libft/ft_split.c \
-			  ./libft/ft_strchr.c \
-			  ./libft/ft_strdup.c \
-			  ./libft/ft_striteri.c \
-			  ./libft/ft_strjoin.c \
-			  ./libft/ft_strlcat.c \
-			  ./libft/ft_strlcpy.c \
-			  ./libft/ft_strlen.c \
-			  ./libft/ft_strmapi.c \
-			  ./libft/ft_strncmp.c \
-			  ./libft/ft_strnstr.c \
-			  ./libft/ft_strrchr.c \
-			  ./libft/ft_strtrim.c \
-			  ./libft/ft_substr.c \
-			  ./libft/ft_tolower.c \
-			  ./libft/ft_toupper.c \
-			  ./libft/ft_memcmp.c
+LIBFT 		= libft
 
 GNL			= ./gnl/get_next_line.c
 
@@ -61,7 +27,6 @@ SLG_UTL		= ./utils/map.c \
 			  ./utils/read_map.c
 
 OBJS_GNL	= ${GNL:.c=.o}
-OBJS_LIBFT	= ${LIBFT:.c=.o}
 OBJS_SLG	= ${SLG_UTL:.c=.o}
 
 UNAME		:= $(shell uname)
@@ -71,25 +36,28 @@ CC 			= clang
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -f
 NAME		= so_long
-FLAGS		= -ldl -Imlx -Lmlx -lmlx -lm -lbsd -lXext -lX11 -Wl,-rpath=./bass/,-rpath=./mlx/,-rpath=./delay/
+FLAGS		= -ldl -Imlx -Lmlx -lmlx -lm -lbsd -lXext -lX11 
 
 all: 		${NAME}
 
 .c.o:
-			${CC} -g ${CFLAGS} -Imlx -Ibass -c $< -o ${<:.c=.o}
+			${CC} -g ${CFLAGS} -I libft -Imlx -c $< -o ${<:.c=.o}
 
-$(NAME): 	gclone $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG}
+$(NAME): 	gclone $(OBJS) ${OBJS_M} ${OBJS_GNL} ${OBJS_SLG}
+			make -C $(LIBFT)
 			make -C $(PATH_MLX)
-			${CC} -g $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_LIBFT} ${OBJS_GNL} ${OBJS_SLG} $(FLAGS)
+			${CC} -g $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_GNL} ${OBJS_SLG} $(FLAGS) -L $(LIBFT) -lft
 
 gclone:		
 			if [ ! -d "./mlx" ] ; then git clone https://github.com/42Paris/minilibx-linux.git mlx ; fi
 
 clean:
+			make -C $(LIBFT) clean
 			make -C $(PATH_MLX) clean
-			${RM} ${OBJS} ${OBJS_M} ${OBJS_GNL} ${OBJS_SLG} ${OBJS_LIBFT}
+			${RM} ${OBJS} ${OBJS_M} ${OBJS_GNL} ${OBJS_SLG} 
 
 fclean: 	clean
+			make -C $(LIBFT) fclean
 			make -C $(PATH_MLX) clean
 			rm -rf mlx
 			${RM} ${NAME}

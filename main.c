@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./mlx/mlx.h"
 #include "./so_long.h"
 
 int	catch_input(int keycode, t_game *game)

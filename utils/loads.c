@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../so_long.h"
-#include "../mlx/mlx.h"
 
 static void	*mlx_put_img(void *mlx, char *path, int x, int y)
 {
