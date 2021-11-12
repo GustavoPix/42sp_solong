@@ -53,12 +53,12 @@ gclone:
 
 clean:
 			make -C $(LIBFT) clean
-			make -C $(PATH_MLX) clean
+			if [ -d "./mlx" ] ; then make -C $(PATH_MLX) clean ; fi
 			${RM} ${OBJS} ${OBJS_M} ${OBJS_GNL} ${OBJS_SLG} 
 
 fclean: 	clean
 			make -C $(LIBFT) fclean
-			make -C $(PATH_MLX) clean
+			if [ -d "./mlx" ] ; then make -C $(PATH_MLX) clean ; fi
 			rm -rf mlx
 			${RM} ${NAME}
 
