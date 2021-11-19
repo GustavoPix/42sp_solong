@@ -5,10 +5,10 @@ O projeto utiliza a minilibx.
 
 ## Controles
 
-`w` -> subir
-`a` -> esquerda
-`s` -> descer
-`d` -> direita
+- `w` -> subir
+- `a` -> esquerda
+- `s` -> descer
+- `d` -> direita
 
 ## Compilação
 
